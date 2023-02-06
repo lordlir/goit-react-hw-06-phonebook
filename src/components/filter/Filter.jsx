@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { setFilter } from 'redux/slice.filter';
 import s from './filter.module.css';
-export const Filter = ({ filter, onFilterChanche }) => {
+
+export const Filter = () => {
+  const dispatch = useDispatch();
+
   return (
     <label className={s.label} htmlFor="filter">
       Find contacts by name
@@ -11,14 +15,8 @@ export const Filter = ({ filter, onFilterChanche }) => {
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-        value={filter}
-        onChange={onFilterChanche}
+        onChange={event => dispatch(setFilter(event.target.value))}
       />
     </label>
   );
-};
-
-Filter.propType = {
-  filter: PropTypes.string.isRequired,
-  onFilterChanche: PropTypes.func.isRequired,
 };
